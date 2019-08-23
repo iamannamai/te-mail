@@ -10,20 +10,30 @@ This app is hosted at `TBD`.
 
 ## Getting Started
 
-To run the program locally, you will need to provide a `.env` file containing a SendGrid API key.
+To run the program locally, you will need to provide a `.env` file containing a SendGrid API key into the root folder.
 
-## Stack
+### Scripts
+
+#### Production
+
+`npm start` - creates client bundle and starts the server
+
+#### Development
+
+`npm run start-dev` - builds client, starts server, watches for changes on both for auto-reload during development
+`npm test` - execute all tests (client and server)
+
+### Stack/Tools
 
 - **Frontend**: ReactJS
-- **Backend**: NodeJS/ExpressJS
+- **Backend**: ExpressJS (NodeJS)
 
-## Libraries
+#### Other Libraries
 
-- React-Router-DOM
 - SendGrid
 - HandlebarsJS
 
-## Tools
+#### Tools
 
 - Webpack
 - Jest
