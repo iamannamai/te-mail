@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const sgMail = require('./sendGrid/sendGrid');
+const sgMail = require('../sendGrid/sendGrid');
 
 router.post('/', async (req, res, next) => {
   try {

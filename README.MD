@@ -10,31 +10,30 @@ This app is hosted at `TBD`.
 
 ## Getting Started
 
+### Production
+
+- `npm start` - creates client bundle and starts the server
+
+### Development
+
 To run the program locally, you will need to provide a `.env` file containing a SendGrid API key into the root folder.
 
-### Scripts
+- `npm run start-dev` - builds client, starts server, watches for changes on both for auto-reload during development
+- `npm test` - execute all tests (client and server)
 
-#### Production
-
-`npm start` - creates client bundle and starts the server
-
-#### Development
-
-`npm run start-dev` - builds client, starts server, watches for changes on both for auto-reload during development
-`npm test` - execute all tests (client and server)
-
-### Stack/Tools
+## Stack/Tools
 
 - **Frontend**: ReactJS
 - **Backend**: ExpressJS (NodeJS)
 
-#### Other Libraries
+### Other Libraries
 
 - SendGrid
 - HandlebarsJS
 
-#### Tools
+### Tools
 
-- Webpack
-- Jest
-- React-Testing-Library
+- Webpack (& Babel)
+- Jest (test-runner)
+- SuperAgent (testing server)
+- React-Testing-Library (testing React components)
