@@ -19,4 +19,14 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.post('/preview', async (req, res, next) => {
+  try {
+    const { body } = req;
+
+    res.status(201).json(body);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
