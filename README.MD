@@ -2,11 +2,14 @@
 
 An email templating service built in React and NodeJS
 
+## Features/How To
+
+- User can provide an email template with keys denoted by `%%key_name%%` and generate key inputs by clicking on `Commit Template`
+- User can provide values for keys and then click `Preview` to request a preview from server
+
 ## Hosted
 
 This app is hosted at `TBD`.
-
-## Features/How To
 
 ## Getting Started
 
