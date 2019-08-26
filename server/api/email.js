@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const sgMail = require('../sendGrid/sendGrid');
+const { parseTemplate, render } = require('../util');
 
 router.post('/', async (req, res, next) => {
   try {
@@ -19,11 +20,12 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.post('/preview', async (req, res, next) => {
+router.post('/preview', (req, res, next) => {
   try {
-    const { body } = req;
-
-    res.status(201).json(body);
+    const { template, inputs } = req.body;
+    const htmlTemplate = parseTemplate(template, inputs);
+    const renderedHtml = render(htmlTemplate, inputs);
+    res.status(201).json(renderedHtml);
   } catch (error) {
     next(error);
   }

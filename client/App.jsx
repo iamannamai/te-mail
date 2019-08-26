@@ -14,7 +14,7 @@ const App = () => {
   const preview = emailTemplate => async inputs => {
     try {
       const req = {
-        template: JSON.stringify(emailTemplate),
+        template: JSON.stringify(emailTemplate).replace(/"/g, ''),
         inputs
       };
       const { data: prev } = await axios.post('/api/email/preview', req);

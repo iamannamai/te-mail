@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 
+/**
+ * Custom form hook to keep track of inputs in a form
+ * @param {function} cb - callback function to execute during handleSubmit
+ * @return {object} - object containing inputs state, setInput handler to update inputs, handleSubmit, and handleChange functions
+ */
 export const useForm = cb => {
   const [inputs, setInputs] = useState({});
 
