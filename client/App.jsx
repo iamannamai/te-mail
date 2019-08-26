@@ -1,32 +1,38 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Container, Form, Input } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Button, Container, Form, Input } from 'semantic-ui-react';
 import axios from 'axios';
 
-import TemplateEditor from './components/TemplateEditor';
-import TemplateKeyArea from './components/TemplateKeyArea';
+import { TemplateEditor, TemplateKeyArea, EmailPreview } from './components';
 import { useForm } from './customHooks/CustomHooks';
 import { extractKeys } from './utils';
 
 const App = () => {
   const [template, setTemplate] = useState('');
+  const [emailPreview, setEmailPreview] = useState('');
   const [keys, setKeys] = useState([]);
 
-  const preview = emailTemplate => async inputs => {
+  const submit = emailTemplate => (
+    endpoint,
+    setStateMethod
+  ) => async inputs => {
     try {
       const req = {
         template: JSON.stringify(emailTemplate).replace(/"/g, ''),
         inputs
       };
-      const { data: prev } = await axios.post('/api/email/preview', req);
-      console.log(prev);
+      const { data } = await axios.post(endpoint, req);
+      if (setStateMethod) setStateMethod(data);
     } catch (error) {
       // set any flags here
       console.error(error);
     }
   };
 
-  const { inputs, setInputs, handleSubmit, handleChange } = useForm(
-    preview(template)
+  const { inputs, setInputs, previewEmail, sendEmail, handleChange } = useForm(
+    submit(template),
+    {
+      setEmailPreview
+    }
   );
 
   const updateKeys = temp => {
@@ -43,7 +49,7 @@ const App = () => {
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={sendEmail}>
         <TemplateEditor saveTemplate={setTemplate} />
         <Form.Group>
           <Form.Field
@@ -76,8 +82,10 @@ const App = () => {
             values={inputs}
           />
         )}
-        <Form.Button>Preview</Form.Button>
+        <Button onClick={previewEmail}>Preview</Button>
       </Form>
+      {emailPreview && <EmailPreview preview={emailPreview} />}
+      <Form.Button>Send Email</Form.Button>
     </Container>
   );
 };

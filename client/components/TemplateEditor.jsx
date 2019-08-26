@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Container, Form, Button } from 'semantic-ui-react';
 
 const TemplateEditor = ({ saveTemplate }) => {
   const [template, setTemplate] = useState('');
@@ -14,12 +14,18 @@ const TemplateEditor = ({ saveTemplate }) => {
   };
 
   return (
-    <Form.Group>
-      <Form.TextArea value={template} onChange={handleChange} />
+    <Container>
+      <Form.TextArea
+        value={template}
+        onChange={handleChange}
+        style={{
+          minHeight: '70vh'
+        }}
+      />
       <Button disabled={!template} onClick={handleSubmit}>
         Commit Template
       </Button>
-    </Form.Group>
+    </Container>
   );
 };
 

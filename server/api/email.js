@@ -14,7 +14,7 @@ router.post('/', async (req, res, next) => {
     };
     await sgMail.send(msg);
 
-    res.status(201).send();
+    res.status(200).send();
   } catch (error) {
     next(error);
   }
@@ -25,7 +25,7 @@ router.post('/preview', (req, res, next) => {
     const { template, inputs } = req.body;
     const htmlTemplate = parseTemplate(template, inputs);
     const renderedHtml = render(htmlTemplate, inputs);
-    res.status(201).json(renderedHtml);
+    res.status(200).send(renderedHtml);
   } catch (error) {
     next(error);
   }
