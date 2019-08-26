@@ -4,17 +4,22 @@ const { parseTemplate, render } = require('../util');
 
 router.post('/', async (req, res, next) => {
   try {
-    const { body } = req;
-    const msg = {
-      to: 'test@example.com',
-      from: 'test@example.com',
-      subject: 'Sending with Twilio SendGrid is Fun',
-      text: 'and easy to do anywhere, even with Node.js',
-      html: '<strong>and easy to do anywhere, even with Node.js</strong>'
-    };
-    await sgMail.send(msg);
+    const { template, inputs } = req.body;
+    const { sender, recipient, subject } = inputs;
 
-    res.status(200).send();
+    const htmlTemplate = parseTemplate(template, inputs);
+    const renderedHtml = render(htmlTemplate, inputs);
+
+    const msg = {
+      to: recipient,
+      from: sender,
+      subject: subject,
+      html: renderedHtml
+    };
+
+    const response = await sgMail.send(msg);
+
+    res.status(200).json(response);
   } catch (error) {
     next(error);
   }

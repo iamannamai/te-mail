@@ -74,6 +74,17 @@ const App = () => {
             value={inputs.recipient || ''}
             required
           />
+          <Form.Field
+            id="subject"
+            label="Subject"
+            placeholder="Subject"
+            name="subject"
+            type="text"
+            control={Input}
+            onChange={handleChange}
+            value={inputs.subject || ''}
+            required
+          />
         </Form.Group>
         {keys.length > 0 && (
           <TemplateKeyArea
@@ -83,9 +94,9 @@ const App = () => {
           />
         )}
         <Button onClick={previewEmail}>Preview</Button>
+        <Form.Button>Send Email</Form.Button>
       </Form>
       {emailPreview && <EmailPreview preview={emailPreview} />}
-      <Form.Button>Send Email</Form.Button>
     </Container>
   );
 };
