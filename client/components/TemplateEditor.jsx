@@ -1,27 +1,38 @@
-import React, { useState } from 'react';
-import { Form, Button, TextArea } from 'semantic-ui-react';
+import React from 'react';
+import { Form, Button, TextArea, Message } from 'semantic-ui-react';
 
-const TemplateEditor = ({ saveTemplate }) => {
-  const [template, setTemplate] = useState('');
-
+const TemplateEditor = ({
+  editedTemplate,
+  template,
+  setEditedTemplate,
+  setTemplate
+}) => {
   const handleChange = ({ target: { value } }) => {
-    setTemplate(value);
+    setEditedTemplate(value);
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    saveTemplate(template);
+    setTemplate(editedTemplate);
   };
 
   return (
     <div className="template-editor">
-      <Button disabled={!template} onClick={handleSubmit}>
+      <Button
+        disabled={!editedTemplate && template !== editedTemplate}
+        onClick={handleSubmit}
+      >
         Commit Template
       </Button>
+      <Message
+        warning
+        header="Current and saved templates out of sync"
+        content="The template you generated your keys with is out of sync with the current content. Please hit Commit Template to reconcile your changes. This will clear any values in your keys inputs."
+      />
       <Form.Field
         label="Template"
         name="template-editor"
-        value={template}
+        value={editedTemplate}
         onChange={handleChange}
         control={TextArea}
         style={{

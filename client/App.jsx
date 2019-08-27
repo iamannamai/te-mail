@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form, Input } from 'semantic-ui-react';
+import { Container, Form, Input, Message } from 'semantic-ui-react';
 import axios from 'axios';
 
 import {
@@ -30,9 +30,21 @@ const EMAIL_REQUIRED_FIELDS = [
 ];
 
 const App = () => {
+  // Template from which keys were generated
   const [template, setTemplate] = useState('');
-  const [emailPreview, setEmailPreview] = useState('');
+
+  // Current template state
+  const [editedTemplate, setEditedTemplate] = useState('');
+  const [preview, setEmailPreview] = useState('');
+  const [status, setStatus] = useState('');
+
   const [keys, setKeys] = useState([]);
+
+  const clearStatus = () => {
+    setTimeout(() => {
+      setStatus('');
+    }, 5000);
+  };
 
   const submit = emailTemplate => (
     endpoint,
@@ -44,25 +56,35 @@ const App = () => {
         inputs
       };
       const { data } = await axios.post(endpoint, req);
-      if (setStateMethod) setStateMethod(data);
+      if (setStateMethod) {
+        setStateMethod(data);
+      } else if (endpoint === '/api/email') {
+        setStatus('success');
+        clearStatus();
+      }
     } catch (error) {
       // set any flags here
-      console.error(error);
+      setStatus('error');
+      clearStatus();
     }
   };
 
   const { inputs, setInputs, previewEmail, sendEmail, handleChange } = useForm(
     submit(template),
-    {
-      setEmailPreview
-    }
+    { setEmailPreview }
   );
 
   const updateKeys = temp => {
     const keyArray = Array.from(extractKeys(temp));
+    const { sender, recipient, subject } = inputs;
     setKeys(keyArray);
     // anytime keys are updated, clear all saved values of inputs as well
-    setInputs({});
+    setInputs({
+      ...inputs,
+      sender,
+      recipient,
+      subject
+    });
   };
 
   useEffect(() => {
@@ -71,22 +93,46 @@ const App = () => {
 
   return (
     <Container>
-      <Form onSubmit={sendEmail} className="flex">
-        <TemplateEditor saveTemplate={setTemplate} />
+      <Form
+        onSubmit={sendEmail}
+        className="flex"
+        warning={template !== editedTemplate && keys.length > 0}
+        success={status === 'success'}
+        error={status === 'error'}
+      >
+        <TemplateEditor
+          editedTemplate={editedTemplate}
+          setEditedTemplate={setEditedTemplate}
+          setTemplate={setTemplate}
+        />
         <div className="inputs">
           <Form.Group>
             <EmailPreview
-              preview={emailPreview}
+              preview={preview}
               previewEmail={previewEmail}
               recipient={inputs.recipient}
               sender={inputs.sender}
               subject={inputs.subject}
               template={template}
+              editedTemplate={editedTemplate}
             />
-            <Form.Button disabled={!template} primary>
+            <Form.Button
+              disabled={!template && template !== editedTemplate}
+              primary
+            >
               Send Email
             </Form.Button>
           </Form.Group>
+          <Message
+            success
+            header="Success!"
+            content={`Email was sent to ${inputs.recipient}`}
+          />
+          <Message
+            error
+            header="An Error Occurred"
+            content="We could not successfully send your email. Please try again."
+          />
           {EMAIL_REQUIRED_FIELDS.map(field => (
             <RequiredFieldInput
               key={field.name.toLowerCase()}
