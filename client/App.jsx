@@ -1,10 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Container, Form, Input } from 'semantic-ui-react';
+import { Container, Form, Input } from 'semantic-ui-react';
 import axios from 'axios';
 
-import { TemplateEditor, TemplateKeyArea, EmailPreview } from './components';
+import {
+  EmailPreview,
+  RequiredFieldInput,
+  TemplateEditor,
+  TemplateKeyArea
+} from './components';
 import { useForm } from './customHooks/CustomHooks';
 import { extractKeys } from './utils';
+
+const EMAIL_REQUIRED_FIELDS = [
+  {
+    name: 'Sender',
+    placeholder: 'Sender Email',
+    type: 'email'
+  },
+  {
+    name: 'Recipient',
+    placeholder: 'Recipient Email',
+    type: 'email'
+  },
+  {
+    name: 'Subject',
+    placeholder: 'Subject',
+    type: 'text'
+  }
+];
 
 const App = () => {
   const [template, setTemplate] = useState('');
@@ -38,7 +61,6 @@ const App = () => {
   const updateKeys = temp => {
     const keyArray = Array.from(extractKeys(temp));
     setKeys(keyArray);
-
     // anytime keys are updated, clear all saved values of inputs as well
     setInputs({});
   };
@@ -49,54 +71,40 @@ const App = () => {
 
   return (
     <Container>
-      <Form onSubmit={sendEmail}>
+      <Form onSubmit={sendEmail} className="flex">
         <TemplateEditor saveTemplate={setTemplate} />
-        <Form.Group>
-          <Form.Field
-            id="sender"
-            label="Sender"
-            placeholder="Sender Email"
-            name="sender"
-            type="email"
-            control={Input}
-            onChange={handleChange}
-            value={inputs.sender || ''}
-            required
-          />
-          <Form.Field
-            id="recipient"
-            label="Recipient"
-            placeholder="Recipient Email"
-            name="recipient"
-            type="email"
-            control={Input}
-            onChange={handleChange}
-            value={inputs.recipient || ''}
-            required
-          />
-          <Form.Field
-            id="subject"
-            label="Subject"
-            placeholder="Subject"
-            name="subject"
-            type="text"
-            control={Input}
-            onChange={handleChange}
-            value={inputs.subject || ''}
-            required
-          />
-        </Form.Group>
-        {keys.length > 0 && (
-          <TemplateKeyArea
-            keys={keys}
-            onChange={handleChange}
-            values={inputs}
-          />
-        )}
-        <Button onClick={previewEmail}>Preview</Button>
-        <Form.Button>Send Email</Form.Button>
+        <div className="inputs">
+          <Form.Group>
+            <EmailPreview
+              preview={emailPreview}
+              previewEmail={previewEmail}
+              recipient={inputs.recipient}
+              sender={inputs.sender}
+              subject={inputs.subject}
+              template={template}
+            />
+            <Form.Button disabled={!template} primary>
+              Send Email
+            </Form.Button>
+          </Form.Group>
+          {EMAIL_REQUIRED_FIELDS.map(field => (
+            <RequiredFieldInput
+              key={field.name.toLowerCase()}
+              field={field}
+              inputs={inputs}
+              control={Input}
+              onChange={handleChange}
+            />
+          ))}
+          {keys.length > 0 && (
+            <TemplateKeyArea
+              keys={keys}
+              onChange={handleChange}
+              values={inputs}
+            />
+          )}
+        </div>
       </Form>
-      {emailPreview && <EmailPreview preview={emailPreview} />}
     </Container>
   );
 };

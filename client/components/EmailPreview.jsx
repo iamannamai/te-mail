@@ -1,13 +1,48 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
+import { Button, Header, Modal, Container } from 'semantic-ui-react';
 
-const EmailPreview = ({ preview }) => {
+const EmailPreview = ({
+  preview,
+  previewEmail,
+  sender,
+  recipient,
+  subject,
+  template
+}) => {
   return (
-    <Container
-      dangerouslySetInnerHTML={{
-        __html: preview
-      }}
-    />
+    <Modal
+      trigger={
+        <Button
+          onClick={previewEmail}
+          content="Preview"
+          disabled={!template}
+          secondary
+        />
+      }
+    >
+      <Modal.Content>
+        <Header as="h1">Email Preview</Header>
+        <Container>
+          <div>
+            <span className="email-field-title">From: </span>
+            {sender}
+          </div>
+          <div>
+            <span className="email-field-title">To: </span>
+            {recipient}
+          </div>
+          <div>
+            <span className="email-field-title">Subject: </span>
+            {subject}
+          </div>
+        </Container>
+        <Container
+          dangerouslySetInnerHTML={{
+            __html: preview || '<div/>'
+          }}
+        />
+      </Modal.Content>
+    </Modal>
   );
 };
 

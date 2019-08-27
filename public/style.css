@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 2%;
+  display: flex;
+  justify-content: center;
+}
+
+.email-field-title {
+  font-weight: bold;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.template-editor {
+  flex: 3;
+}
+
+.inputs {
+  margin: 0 2%;
+  flex: 2;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Container } from 'semantic-ui-react';
 
 import KeyInput from '../components/KeyInput';
 
@@ -7,7 +7,7 @@ const KeyArea = props => {
   const { keys, values, onChange } = props;
 
   return (
-    <Form.Group>
+    <div>
       {keys.length > 0 &&
         keys.map((key, i) => {
           return (
@@ -17,11 +17,10 @@ const KeyArea = props => {
               name={key}
               value={values[key] || ''}
               onChange={onChange}
-              required
             />
           );
         })}
-    </Form.Group>
+    </div>
   );
 };
 

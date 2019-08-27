@@ -9,9 +9,11 @@ const KeyInput = props => {
       label={name}
       placeholder={name}
       name={name}
-      value={value || ''}
+      value={value}
       onChange={onChange}
       control={Input}
+      width={10}
+      required
     />
   );
 };

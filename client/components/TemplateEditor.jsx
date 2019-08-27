@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'semantic-ui-react';
+import { Form, Button, TextArea } from 'semantic-ui-react';
 
 const TemplateEditor = ({ saveTemplate }) => {
   const [template, setTemplate] = useState('');
@@ -14,18 +14,21 @@ const TemplateEditor = ({ saveTemplate }) => {
   };
 
   return (
-    <Container>
-      <Form.TextArea
+    <div className="template-editor">
+      <Button disabled={!template} onClick={handleSubmit}>
+        Commit Template
+      </Button>
+      <Form.Field
+        label="Template"
+        name="template-editor"
         value={template}
         onChange={handleChange}
+        control={TextArea}
         style={{
           minHeight: '70vh'
         }}
       />
-      <Button disabled={!template} onClick={handleSubmit}>
-        Commit Template
-      </Button>
-    </Container>
+    </div>
   );
 };
 
