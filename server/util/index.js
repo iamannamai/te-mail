@@ -32,7 +32,6 @@ const parseTemplate = (templateString, inputs = {}) => {
 
 const render = (source = '', inputs = {}) => {
   const template = Handlebars.compile(source);
-
   return template(inputs);
 };
 
