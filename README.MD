@@ -20,7 +20,7 @@ An email templating service built in React and NodeJS
 
 ### Development
 
-To run the program locally, you will need to provide a `.env` file containing a SendGrid API key into the root folder.
+To run the program locally, you will need to provide a `.env` file containing a SendGrid API key into the root folder. Specifically, create a `.env` file and add `SENDGRID_API_KEY=<SG_KEY>`
 
 - `npm run start-dev` - builds client, starts server, watches for changes on both for auto-reload during development
 - `npm test` - execute all tests (client and server)
@@ -38,7 +38,7 @@ To run the program locally, you will need to provide a `.env` file containing a 
 ### Server
 
 [ ] Fault Tolerance - set up an app instance in server to listen to server failures and restart server if needed
-[ ] Key identification in server depends on providing an input body with the matching keys provided. i.e.
+[ ] Key identification in server depends on providing an input body with the matching keys provided. i.e. if template is `template with %%key1%%` and the input body doesn't contain key, the template returned would be `<div>template with key1</div>` instead of `<div>template with {{key1}}</div>`
 
 ---
 
