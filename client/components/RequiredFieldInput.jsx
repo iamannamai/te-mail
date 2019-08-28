@@ -15,7 +15,7 @@ const RequiredKeyInput = props => {
       control={control}
       onChange={onChange}
       value={inputs[nameLower] || ''}
-      width="equal"
+      widths="equal"
       required
     />
   );

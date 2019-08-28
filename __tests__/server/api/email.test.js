@@ -41,7 +41,7 @@ describe('/api/email', () => {
     // xit('should return a 400 if required fields are not returned', () => {});
   });
 
-  describe('POST /api/email', () => {
+  describe('POST /', () => {
     it('should return a 202 when email successfully sends', () => {
       const emailBody = {
         template: 'template %%key%% string',

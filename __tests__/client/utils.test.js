@@ -8,12 +8,14 @@ describe('utils', () => {
       const expected = new Set([]);
       expect(keys).toEqual(expected);
     });
+
     it('should produce an empty set if template is an empty string', () => {
       const template = '';
       const keys = extractKeys(template);
       const expected = new Set([]);
       expect(keys).toEqual(expected);
     });
+
     it('should produce a unique set of keys if template lists a key twice', () => {
       const template = 'template %%key1%% string %%key2%% with keys %%key1%%';
       const keys = extractKeys(template);
