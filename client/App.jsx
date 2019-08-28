@@ -4,9 +4,9 @@ import axios from 'axios';
 
 import {
   EmailPreview,
+  KeyInput,
   RequiredFieldInput,
-  TemplateEditor,
-  TemplateKeyArea
+  TemplateEditor
 } from './components';
 import { useForm } from './customHooks/CustomHooks';
 import { extractKeys } from './utils';
@@ -143,13 +143,16 @@ const App = () => {
               onChange={handleChange}
             />
           ))}
-          {keys.length > 0 && (
-            <TemplateKeyArea
-              keys={keys}
-              onChange={handleChange}
-              values={inputs}
-            />
-          )}
+          {keys.length > 0 &&
+            keys.map((key, i) => (
+              <KeyInput
+                key={key}
+                id={i}
+                name={key}
+                value={inputs[key] || ''}
+                onChange={handleChange}
+              />
+            ))}
         </div>
       </Form>
     </Container>

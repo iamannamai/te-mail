@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { RequiredFieldInput } from '../../../client/components';
 
 describe('RequiredFieldInput', () => {
-  it('should render a form field based on an input object', () => {
+  it('should render a form field based on a field and an input object', () => {
     const field = {
       name: 'Field',
       placeholder: 'Field',

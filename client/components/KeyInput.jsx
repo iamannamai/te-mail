@@ -1,8 +1,7 @@
 import React from 'react';
 import { Form, Input } from 'semantic-ui-react';
 
-const KeyInput = props => {
-  const { name, value, onChange, id } = props;
+const KeyInput = ({ name, value, onChange, id }) => {
   return (
     <Form.Field
       id={id}
