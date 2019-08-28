@@ -4,7 +4,6 @@ const morgan = require('morgan');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5050;
 
 app.use(morgan('dev'));
 
@@ -21,9 +20,9 @@ app.use('/*', (req, res) => {
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(err.status || 500).send(err.message || 'Internal server error');
+  res
+    .status(err.status || err.code || 500)
+    .send(err.message || 'Internal server error');
 });
 
-app.listen(PORT, () => {
-  console.log(`Access page at http://localhost:${PORT}`);
-});
+module.exports = app;

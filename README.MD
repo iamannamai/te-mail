@@ -6,10 +6,21 @@ An email templating service built in React and NodeJS
 
 - User can provide an email template with keys denoted by `%%key_name%%` and generate key inputs by clicking on `Commit Template`
 - User can provide values for keys and then click `Preview` to request a preview from server
+- User can `Send Email` if all fields are provided
+- User is warned if their template changes from the template they generated their keys with
+- User is told whether their email sent successfully or not
 
-## Hosted
+## TODO
 
-This app is hosted at `TBD`.
+### Client
+
+[ ] Regex to generate keys is currently only looking for `<keyName>%%` instead of `%%<keyName>%%`. Need to correct.
+[ ] App maintains a `template` and `editedTemplate` state. Can we consolidate these?
+
+### Server
+
+[ ] Fault Tolerance - set up an app instance in server to listen to server failures and restart server if needed
+[ ] Key identification in server depends on providing an input body with the matching keys provided. i.e.
 
 ## Getting Started
 

@@ -33,6 +33,7 @@ const TemplateEditor = ({
         label="Template"
         name="template-editor"
         value={editedTemplate}
+        placeholder="Add your email template here. You can wrap values in '%%' to denote a key in your template (i.e. %%key_name%% would refer to a key called 'key_name'). Hit 'Commit Template' to commit changes and generate keys."
         onChange={handleChange}
         control={TextArea}
         style={{
