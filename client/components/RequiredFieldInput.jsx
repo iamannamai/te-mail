@@ -1,8 +1,7 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
 
-const RequiredFieldInput = props => {
-  const { field, inputs, control, onChange } = props;
+const RequiredFieldInput = ({ field, inputs, control, onChange }) => {
   const { name, placeholder, type } = field;
   const nameLower = name.toLowerCase();
   return (
