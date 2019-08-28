@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
 
-const RequiredKeyInput = props => {
+const RequiredFieldInput = props => {
   const { field, inputs, control, onChange } = props;
   const { name, placeholder, type } = field;
   const nameLower = name.toLowerCase();
@@ -21,4 +21,4 @@ const RequiredKeyInput = props => {
   );
 };
 
-export default RequiredKeyInput;
+export default RequiredFieldInput;

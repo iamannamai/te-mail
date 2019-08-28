@@ -39,6 +39,7 @@ const EmailPreview = ({
           </div>
         </Container>
         <Container
+          id="email-content"
           dangerouslySetInnerHTML={{
             __html: preview || '<div/>'
           }}

@@ -1,9 +1,7 @@
 import React from 'react';
-import { render, fireEvent, waitForElement } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { TemplateEditor } from '../../../client/components';
-import { JestEnvironment } from '@jest/environment';
-import { exportAllDeclaration } from '@babel/types';
 
 describe('TemplateEditor', () => {
   it('should disable "Commit Template" button if editedTemplate is empty', () => {
