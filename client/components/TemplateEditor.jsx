@@ -19,6 +19,7 @@ const TemplateEditor = ({
   return (
     <div className="template-editor">
       <Button
+        id="commit"
         disabled={!editedTemplate && template !== editedTemplate}
         onClick={handleSubmit}
       >

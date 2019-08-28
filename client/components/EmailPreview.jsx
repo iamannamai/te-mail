@@ -13,14 +13,16 @@ const EmailPreview = ({
     <Modal
       trigger={
         <Button
+          id="preview"
           onClick={previewEmail}
           content="Preview"
           disabled={!template}
           secondary
         />
       }
+      centered={false}
     >
-      <Modal.Content>
+      <Modal.Content id="email-preview">
         <Header as="h1">Email Preview</Header>
         <Container>
           <div>

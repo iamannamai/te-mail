@@ -1,5 +1,4 @@
 import React from 'react';
-import { Form, Container } from 'semantic-ui-react';
 
 import KeyInput from '../components/KeyInput';
 

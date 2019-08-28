@@ -117,6 +117,7 @@ const App = () => {
               editedTemplate={editedTemplate}
             />
             <Form.Button
+              id="send"
               disabled={!template && template !== editedTemplate}
               primary
             >
