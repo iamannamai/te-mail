@@ -7,15 +7,21 @@ router.post('/', async (req, res, next) => {
     const { template, inputs } = req.body;
     const { sender, recipient, subject } = inputs;
 
-    const msg = {
-      to: recipient,
-      from: sender,
-      subject: subject,
-      html: renderFromTemplateString(template, inputs)
-    };
+    if (!sender || !recipient || !subject) {
+      const error = new Error('Missing Fields');
+      error.status = 400;
+      next(error);
+    } else {
+      const msg = {
+        to: recipient,
+        from: sender,
+        subject: subject,
+        html: renderFromTemplateString(template, inputs)
+      };
 
-    const response = await sgMail.send(msg);
-    res.status(202).json(response);
+      const response = await sgMail.send(msg);
+      res.status(202).json(response);
+    }
   } catch (error) {
     next(error);
   }

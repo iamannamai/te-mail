@@ -83,5 +83,22 @@ describe('/api/email', () => {
         .send(emailBody)
         .expect(400);
     });
+
+    it('should return 400 if required field is missing', () => {
+      const emailBody = {
+        template: 'template %%key%% string',
+        inputs: {
+          key: 'value',
+          sender: '',
+          recipient: 'receiver@email.com',
+          subject: 'subject title'
+        }
+      };
+
+      return app
+        .post('/api/email')
+        .send(emailBody)
+        .expect(400);
+    });
   });
 });
