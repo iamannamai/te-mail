@@ -20,8 +20,6 @@ describe('TemplateEditor', () => {
       />
     );
 
-    const newVal = 'newValue';
-
     expect(getByText('Commit Template')).toBeEnabled();
   });
 
