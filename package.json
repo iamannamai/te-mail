@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:debug --silent",
+    "test": "npm run test:debug - --silent",
     "test:debug": "export PORT=8000 && jest --detectOpenHandles",
     "watch-server": "nodemon --watch server app.js -e html,js,css",
     "start-server": "node app.js",
